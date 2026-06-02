@@ -1,0 +1,24 @@
+---
+interface Product {
+  title: string;
+  description: string;
+  image: string;
+  tag: string;
+  alt?: string;
+}
+
+const { product, large = false } = Astro.props as { product: Product; large?: boolean };
+---
+
+<article class:list={['product-card', { 'product-card--large': large }, 'reveal']}>
+  <a href="#visita" aria-label={`Consultar ${product.title}`}>
+    <div class="product-image">
+      <img src={product.image} alt={product.alt ?? product.title} loading="lazy" />
+    </div>
+    <div class="product-info">
+      <span class="product-tag">{product.tag}</span>
+      <h3>{product.title}</h3>
+      <p>{product.description}</p>
+    </div>
+  </a>
+</article>

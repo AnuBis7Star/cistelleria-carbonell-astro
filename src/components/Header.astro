@@ -1,0 +1,23 @@
+---
+import { business, navigation } from '../data/site';
+---
+
+<header class="site-header" data-header>
+  <a href="#top" class="logo" aria-label={`${business.name} - inici`}>
+    Cistelleria <span>{business.shortName}</span>
+  </a>
+
+  <nav class="desktop-nav" aria-label="Navegació principal">
+    {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+
+  <button class="menu-toggle" type="button" aria-label="Obrir menú" aria-expanded="false" data-menu-toggle>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="mobile-nav" aria-label="Navegació mòbil" data-mobile-nav>
+    {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+    <a href={business.phoneHref}>Trucar</a>
+  </nav>
+</header>

@@ -1,0 +1,13 @@
+---
+import { business } from '../data/site';
+---
+
+<footer class="site-footer">
+  <p>Cistelleria <span>{business.shortName}</span> · {business.city}</p>
+
+  <div class="footer-links">
+    <a href={business.facebookUrl} target="_blank" rel="noopener">Facebook</a>
+    <a href={business.mapsUrl} target="_blank" rel="noopener">Google Maps</a>
+    <a href={business.phoneHref}>Contacte</a>
+  </div>
+</footer>

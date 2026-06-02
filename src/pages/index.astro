@@ -1,0 +1,285 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProductCard from '../components/ProductCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import '../styles/global.css';
+import { business, benefits, categories, featuredProducts, products, reviews } from '../data/site';
+
+const pageTitle = `${business.name} · Cistelleria tradicional a ${business.city}`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Store',
+  name: business.name,
+  description: business.description,
+  telephone: business.phoneDisplay,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: business.city,
+    addressRegion: business.region,
+    addressCountry: 'ES',
+  },
+  url: 'https://example.com',
+  sameAs: [business.facebookUrl],
+};
+---
+
+<!doctype html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={business.description} />
+    <meta name="theme-color" content="#0b0d0b" />
+
+    <title>{pageTitle}</title>
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={business.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/local.png" />
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2314672d'/%3E%3Ctext x='50' y='62' font-size='52' text-anchor='middle' fill='white' font-family='Georgia,serif'%3EC%3C/text%3E%3C/svg%3E" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body id="top">
+    <div class="background" aria-hidden="true"></div>
+    <div class="page-overlay" aria-hidden="true"></div>
+
+    <Header />
+
+    <main>
+      <section class="hero section" aria-labelledby="hero-title">
+        <div class="hero-content reveal">
+          <p class="eyebrow">Botiga local · Productes artesanals · {business.city}</p>
+
+          <h1 id="hero-title">
+            Cistelleria
+            <span>{business.shortName}</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            {business.tagline}
+          </p>
+
+          <div class="hero-actions">
+            <a href="#productes" class="btn btn-primary">Veure productes</a>
+            <a href={business.mapsUrl} class="btn btn-secondary" target="_blank" rel="noopener">Com arribar</a>
+          </div>
+
+          <p class="hero-trust">Botiga de proximitat · Materials naturals · Tracte proper</p>
+        </div>
+
+        <a href="#botiga" class="scroll-indicator" aria-label="Baixar a la següent secció">
+          <span></span>
+        </a>
+      </section>
+
+      <section id="destacats" class="featured section">
+        <div class="container">
+          <SectionHeading
+            eyebrow="Destacats"
+            title="El que més agrada als nostres clients"
+            text="Una selecció ràpida de peces útils, naturals i amb l’encant de la cistelleria de sempre."
+          />
+
+          <div class="featured-grid">
+            {featuredProducts.map((product) => <ProductCard product={product} large />)}
+          </div>
+        </div>
+      </section>
+
+      <section id="botiga" class="about section">
+        <div class="container about-grid">
+          <div class="about-image reveal">
+            <img src="/assets/local.png" alt={`Façana de ${business.name} a ${business.city}`} loading="lazy" />
+          </div>
+
+          <div class="about-content reveal">
+            <p class="eyebrow">La botiga</p>
+            <h2>Una cistelleria amb caràcter propi al centre de Reus</h2>
+            <p>
+              A {business.name} trobaràs peces de vímet, cistells, cabassos, barrets, cordes i articles naturals seleccionats amb cura. Una botiga propera, tradicional i pensada per a qui busca productes útils, bonics i duradors.
+            </p>
+            <p>
+              Treballem amb materials naturals i amb una mirada pràctica: objectes que decoren, ajuden en el dia a dia i mantenen viva la tradició cistellera.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="categories section">
+        <div class="container">
+          <SectionHeading
+            eyebrow="Què trobaràs"
+            title="Productes per al dia a dia i peces especials"
+          />
+
+          <div class="category-grid">
+            {categories.map((category) => (
+              <article class="category-card reveal">
+                <div class="card-icon">{category.icon}</div>
+                <h3>{category.title}</h3>
+                <p>{category.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="statement section">
+        <div class="container narrow reveal">
+          <h2>
+            Artesania natural per a
+            <span>cases amb caràcter</span>
+          </h2>
+
+          <div class="line"></div>
+
+          <p>
+            Creiem en el valor dels materials naturals, els objectes útils i el disseny tradicional que no passa de moda.
+          </p>
+        </div>
+      </section>
+
+      <section id="productes" class="products section">
+        <div class="container">
+          <SectionHeading
+            eyebrow="Selecció de productes"
+            title="Peces naturals, útils i fetes amb cura"
+            text="Una petita mostra dels productes que pots trobar a la nostra botiga."
+          />
+
+          <div class="products-grid">
+            {products.map((product) => <ProductCard product={product} />)}
+          </div>
+        </div>
+      </section>
+
+      <section class="benefits section">
+        <div class="container benefits-card reveal">
+          <div>
+            <p class="eyebrow">Per què venir?</p>
+            <h2>Compra propera, natural i amb assessorament</h2>
+          </div>
+
+          <ul>
+            {benefits.map((benefit) => <li>{benefit}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="reviews section">
+        <div class="container">
+          <SectionHeading eyebrow="Opinions" title="Clients que confien en nosaltres" />
+
+          <div class="reviews-grid">
+            {reviews.map((review) => (
+              <article class="review-card reveal">
+                <p>“{review.quote}”</p>
+                <span>{review.author}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="visita" class="visit section">
+        <div class="container">
+          <div class="visit-card reveal">
+            <div class="visit-info">
+              <p class="eyebrow">Contacte</p>
+              <h2>Visita’ns</h2>
+
+              <div class="visit-row">
+                <span class="visit-icon">●</span>
+                <div>
+                  <h3>{business.name}</h3>
+                  <p>{business.address}</p>
+                </div>
+              </div>
+
+              <div class="visit-row">
+                <span class="visit-icon">◷</span>
+                <div>
+                  <h3>Horari</h3>
+                  <p>{business.hours}</p>
+                </div>
+              </div>
+
+              <div class="visit-row">
+                <span class="visit-icon">☎</span>
+                <div>
+                  <h3>Telèfon</h3>
+                  <p>{business.phoneDisplay}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="visit-actions">
+              <a href={business.mapsUrl} class="btn btn-light" target="_blank" rel="noopener">Obrir a Google Maps</a>
+              <a href={business.phoneHref} class="btn btn-call">Trucar ara</a>
+              <a href={business.facebookUrl} class="btn btn-secondary" target="_blank" rel="noopener">Veure Facebook</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <a href={business.phoneHref} class="floating-call" aria-label={`Trucar a ${business.name}`}>Trucar</a>
+
+    <script>
+      const revealElements = document.querySelectorAll('.reveal');
+      const header = document.querySelector('[data-header]');
+      const menuToggle = document.querySelector('[data-menu-toggle]');
+      const mobileNav = document.querySelector('[data-mobile-nav]');
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.15,
+          rootMargin: '0px 0px -80px 0px',
+        }
+      );
+
+      revealElements.forEach((element) => revealObserver.observe(element));
+
+      const handleScrollEffects = () => {
+        const maxScroll = window.innerHeight * 0.9;
+        const maxDarkness = 0.72;
+        const progress = Math.min(window.scrollY / maxScroll, 1);
+        const opacity = progress * maxDarkness;
+
+        document.body.style.setProperty('--dark-overlay-opacity', opacity.toString());
+        header?.classList.toggle('header-scrolled', window.scrollY > 40);
+      };
+
+      const closeMenu = () => {
+        document.body.classList.remove('menu-open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+      };
+
+      menuToggle?.addEventListener('click', () => {
+        const isOpen = document.body.classList.toggle('menu-open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileNav?.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      window.addEventListener('scroll', handleScrollEffects, { passive: true });
+      window.addEventListener('load', handleScrollEffects);
+    </script>
+  </body>
+</html>
