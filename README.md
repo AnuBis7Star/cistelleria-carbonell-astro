@@ -1,15 +1,13 @@
-# Cistelleria Carbonell · Astro Website
+# Cistelleria Carbonell
 
-An upgraded Astro version of the static Cistelleria Carbonell website.
+Static Astro website for Cistelleria Carbonell, a local cistelleria and natural-products shop in Reus.
 
-## What changed
+## Tech stack
 
-- Converted the project to Astro.
-- Added reusable data in `src/data/site.ts`.
-- Added a stronger hero section, featured products, shop story, product gallery, benefits, reviews and contact CTA.
-- Added mobile menu, scroll-aware header, reveal animations and dynamic background darkening.
-- Added SEO meta tags, Open Graph tags, favicon placeholder and local business structured data.
-- Improved responsive layout and reusable design variables.
+- Astro
+- TypeScript
+- CSS
+- GitHub Actions for preview deployment
 
 ## Project structure
 
@@ -30,40 +28,56 @@ src/
     index.astro
   styles/
     global.css
+  utils/
+    paths.ts
+.github/
+  workflows/
+    deploy.yml
 astro.config.mjs
 package.json
 ```
 
-## Run locally
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open the local URL shown in the terminal.
-
-## Build
+## Build commands
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Customize for another local business
+## Main files to edit
 
-Most content is in:
+- `src/data/site.ts`: business details, navigation, products, categories, benefits and reviews.
+- `src/pages/index.astro`: page layout, SEO metadata and structured data.
+- `src/components/`: reusable page components.
+- `src/styles/global.css`: global design system and responsive styling.
+- `public/assets/`: static images copied directly into the built site.
+- `astro.config.mjs`: Astro site settings and the temporary GitHub Pages preview base path.
 
-```txt
-src/data/site.ts
+## GitHub Pages preview
+
+This repository is configured for preview deployment to GitHub Pages with GitHub Actions.
+
+- GitHub Pages source: `Settings > Pages > Source: GitHub Actions`
+- Preview URL: `https://anubis7star.github.io/cistelleria-carbonell-astro/`
+- The preview uses `base: "/cistelleria-carbonell-astro/"` in `astro.config.mjs` because GitHub Pages serves project sites from the repository path.
+- Public asset paths should go through `src/utils/paths.ts` when referenced from Astro components.
+- Image paths stored in `src/data/site.ts` should be relative, for example `assets/product-1.jpg`.
+
+## Future production hosting
+
+If the site moves to Hostinger, another static host, or a custom domain at the root, remove the `base` value from `astro.config.mjs` or update it for the new hosting path.
+
+For Hostinger or a similar static host:
+
+```bash
+npm run build
 ```
 
-Change the business name, city, links, products, categories, reviews and contact data there. Then change the images inside:
-
-```txt
-public/assets/
-```
-
-## Deployment note
-
-Before deploying, update `site` in `astro.config.mjs` from `https://example.com` to the real domain.
+Upload the contents of `dist/` to the hosting provider.

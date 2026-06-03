@@ -62,7 +62,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: -3;
-  background-image: url('/assets/local.png');
+  background-image: var(--background-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

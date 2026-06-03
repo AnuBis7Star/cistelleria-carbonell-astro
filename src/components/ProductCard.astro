@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../utils/paths';
+
 interface Product {
   title: string;
   description: string;
@@ -13,7 +15,7 @@ const { product, large = false } = Astro.props as { product: Product; large?: bo
 <article class:list={['product-card', { 'product-card--large': large }, 'reveal']}>
   <a href="#visita" aria-label={`Consultar ${product.title}`}>
     <div class="product-image">
-      <img src={product.image} alt={product.alt ?? product.title} loading="lazy" />
+      <img src={withBase(product.image)} alt={product.alt ?? product.title} loading="lazy" />
     </div>
     <div class="product-info">
       <span class="product-tag">{product.tag}</span>
